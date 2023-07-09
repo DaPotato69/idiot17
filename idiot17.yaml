@@ -1,0 +1,126 @@
+points:
+  zones:
+    matrix:
+      key:
+        padding: cy
+        spread: cx
+      columns:
+        a1:
+          key:
+            column_net: P6
+        a2:
+          key:
+            column_net: P4
+        a3:
+          key:
+            column_net: P2
+        a4:
+          key:
+            column_net: P1
+        a5:
+          key:
+            column_net: P16
+        a6:
+          key:
+            column_net: P15
+        a7:
+          key:
+            column_net: P19
+        a8:
+          key:
+            column_net: P20
+        b1:
+          key:
+            shift: [-8cx,-cy]
+            column_net: P7
+        b2:
+          key:
+            shift: [-8cx,-cy]
+            column_net: P5
+        b3:
+          key:
+            shift: [-8cx,-cy]
+            column_net: P3
+        b4:
+          key:
+            shift: [-8cx,-cy]
+            column_net: P0
+        b5:
+          key:
+            shift: [-8cx,-cy]
+            column_net: P10
+        b6:
+          key:
+            shift: [-8cx,-cy]
+            column_net: P14
+        b7:
+          key:
+            shift: [-8cx,-cy]
+            column_net: P18
+        b8:
+          key:
+            shift: [-8cx,-cy]
+            column_net: P21
+        c1:
+          key:
+            shift: [-13.5cx,-2cy]
+            width: 2cx
+            column_net: P9
+      rows:
+        home: 
+outlines:
+  raw:
+    - what: rectangle
+      where: true
+      size: [cx, cy]
+  keys:
+    - what: rectangle
+      where: true
+      size: [cx-0.5,cy-0.5]
+  board:
+    - what: polygon
+      operation: stack
+      points:
+        - ref: matrix_a1_home
+          shift: [-0.5cx-2,0.5cy+2]
+        - ref: matrix_a8_home
+          shift: [0.5cx+2,0.5cy+2]
+        - ref: matrix_c1_home
+          shift: [5cx+2,-0.5cy-2]
+        - ref: matrix_c1_home
+          shift: [-3cx-2,-0.5cy-2]
+  combo:
+    - name: board
+    - operation: subtract
+      name: keys
+pcbs:
+  tutorial:
+    outlines:
+      main:
+        outline: board
+    footprints:
+      choc:
+        what: choc
+        where: true
+        params:
+          keycaps: true
+          reverse: true
+          from: "{{column_net}}"
+          to: GND
+      promicro:
+        what: promicro
+        params:
+          orientation: "down"
+        where:
+          ref: matrix_c1_home
+          shift: [0,0]
+          rotate: 0
+      reset:
+        what: button
+        params:
+          from: GND
+          to: RST
+        where:
+          ref: matrix_c1_home
+          shift: [0, -1cx]
+          rotate: -90
